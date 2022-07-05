@@ -67,4 +67,5 @@ def main_menu():
                 sys.exit()
         pygame.display.update()
 
-main_menu()        
+print("Welcome to The Riddler Game")
+main_menu()       
