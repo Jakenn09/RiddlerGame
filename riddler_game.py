@@ -65,7 +65,74 @@ def main_menu():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if start_button.checkForInput(menu_mouse_pos):
+                    play()
+                if instructions_button.checkForInput(menu_mouse_pos):
+                    instructions()
         pygame.display.update()
 
+def instructions():
+    pygame.display.set_caption("Instructions")
+
+    while running:
+        screen.fill("black")
+        screen.blit(back_ground, (0,0))
+
+        instructions_mouse_pos = pygame.mouse.get_pos()
+
+        instructions_text = mainfont.render("Instructions", True, redtextcolor)
+        instructions_rect = instructions_text.get_rect(center = (540, 100))
+
+        menu_button = Button(image = instructions_image, pos = (540, 650),
+                    text_input = "Main Menu", font = smallfont, base_color = "#d7fcd4", hovering_color = "Red")
+
+        screen.blit(instructions_text, instructions_rect)
+
+        for button in [menu_button]:
+            button.changeColor(instructions_mouse_pos)
+            button.update(screen)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if menu_button.checkForInput(instructions_mouse_pos):
+                    main_menu()
+        pygame.display.update()
+
+def play():
+        pygame.display.set_caption("The Riddler Game")
+
+        while running: 
+            screen.fill("black")
+            screen.blit(back_ground, (0, 0))
+
+            play_mouse_pos = pygame.mouse.get_pos()
+
+            play_text = mainfont.render("Riddler's Games", True, redtextcolor)
+            play_rect = play_text.get_rect(center(540, 100))
+
+            start_game_button = Button(image = instructions_image, pos = (540, 250),
+                            text_input = "Start Game", font = smallfont, base_color ="#d7fcd4", hovering_color = "White")
+            menu_button = Button(image = instructions_image, pos = (540, 250),
+                            text_input = "Main Menu", font = smallfont, base_color ="#d7fcd4", hovering_color = "White")
+
+            screen.blit(play_text, play_rect)
+
+            for button in [start_game_button, menu_button]:
+                button.changeColor(play_mouse_pos)
+                button.update(screen)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if start_game_button.checkForInput(play_mouse_pos):
+                        main_menu()
+                    
+                        
 print("Welcome to The Riddler Game")
 main_menu()       
