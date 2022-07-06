@@ -112,11 +112,11 @@ def play():
             play_mouse_pos = pygame.mouse.get_pos()
 
             play_text = mainfont.render("Riddler's Games", True, redtextcolor)
-            play_rect = play_text.get_rect(center(540, 100))
+            play_rect = play_text.get_rect(center = (540, 100))
 
             start_game_button = Button(image = instructions_image, pos = (540, 250),
                             text_input = "Start Game", font = smallfont, base_color ="#d7fcd4", hovering_color = "White")
-            menu_button = Button(image = instructions_image, pos = (540, 250),
+            menu_button = Button(image = instructions_image, pos = (540, 650),
                             text_input = "Main Menu", font = smallfont, base_color ="#d7fcd4", hovering_color = "White")
 
             screen.blit(play_text, play_rect)
@@ -130,8 +130,9 @@ def play():
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if start_game_button.checkForInput(play_mouse_pos):
+                    if menu_button.checkForInput(play_mouse_pos):
                         main_menu()
+            pygame.display.update()
                     
                         
 print("Welcome to The Riddler Game")
