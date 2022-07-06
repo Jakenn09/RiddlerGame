@@ -51,7 +51,7 @@ def main_menu():
         menu_rect = menu_text.get_rect(center = (540, 100)) #centers the text
 
         start_button = Button(image = start_image, pos = (150, 250), 
-                            text_input = "Start", font = smallfont, base_color = "#d7fcd4", hovering_color = "Red" )
+                            text_input = "Next", font = smallfont, base_color = "#d7fcd4", hovering_color = "Red" )
         instructions_button = Button(image = instructions_image , pos = (150, 350), 
                             text_input = "Instructions", font = smallfont, base_color = "#d7fcd4", hovering_color = "Red")
 
@@ -115,9 +115,9 @@ def play():
             play_rect = play_text.get_rect(center = (540, 100))
 
             start_game_button = Button(image = instructions_image, pos = (540, 250),
-                            text_input = "Start Game", font = smallfont, base_color ="#d7fcd4", hovering_color = "White")
+                            text_input = "Start Game", font = smallfont, base_color ="#d7fcd4", hovering_color = "Red")
             menu_button = Button(image = instructions_image, pos = (540, 650),
-                            text_input = "Main Menu", font = smallfont, base_color ="#d7fcd4", hovering_color = "White")
+                            text_input = "Main Menu", font = smallfont, base_color ="#d7fcd4", hovering_color = "Red")
 
             screen.blit(play_text, play_rect)
 
