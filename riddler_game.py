@@ -26,14 +26,14 @@ redtextcolor = (255, 0, 0)
 back_ground = pygame.image.load("riddler_main_screen.jpg")
 back_ground = pygame.transform.scale(back_ground, (screen_width, screen_height))
 
-start_image = pygame.image.load("red_button2.png")
-start_image = pygame.transform.scale(start_image, (250, 75))
-
-instructions_image = pygame.image.load("red_button2.png")
-instructions_image = pygame.transform.scale(instructions_image, (250,75))
+button_image = pygame.image.load("red_button2.png")
+button_image = pygame.transform.scale(button_image, (250, 75))
 
 quit_image = pygame.image.load("red_button2.png")
 quit_image = pygame.transform.scale(quit_image, (250, 75))
+
+game_instructions = pygame.image.load("game_instructions.png")
+game_instructions = pygame.transform.scale(game_instructions, (450, 250))
 
 #main text color (Red)
 redtextcolor = (250, 0, 0)
@@ -50,9 +50,9 @@ def main_menu():
         menu_text = mainfont.render("The Riddler Game", True, redtextcolor) #creates text and makes color red
         menu_rect = menu_text.get_rect(center = (540, 100)) #centers the text
 
-        start_button = Button(image = start_image, pos = (150, 250), 
+        start_button = Button(image = button_image, pos = (150, 250), 
                             text_input = "Next", font = smallfont, base_color = "#d7fcd4", hovering_color = "Red" )
-        instructions_button = Button(image = instructions_image , pos = (150, 350), 
+        instructions_button = Button(image = button_image , pos = (150, 350), 
                             text_input = "Instructions", font = smallfont, base_color = "#d7fcd4", hovering_color = "Red")
 
         screen.blit(menu_text, menu_rect)
@@ -78,13 +78,14 @@ def instructions():
     while running:
         screen.fill("black")
         screen.blit(back_ground, (0,0))
+        screen.blit(game_instructions, (100, 300))
 
         instructions_mouse_pos = pygame.mouse.get_pos()
 
         instructions_text = mainfont.render("Instructions", True, redtextcolor)
         instructions_rect = instructions_text.get_rect(center = (540, 100))
 
-        menu_button = Button(image = instructions_image, pos = (540, 650),
+        menu_button = Button(image = button_image, pos = (540, 650),
                     text_input = "Main Menu", font = smallfont, base_color = "#d7fcd4", hovering_color = "Red")
 
         screen.blit(instructions_text, instructions_rect)
@@ -114,9 +115,9 @@ def play():
             play_text = mainfont.render("Riddler's Games", True, redtextcolor)
             play_rect = play_text.get_rect(center = (540, 100))
 
-            start_game_button = Button(image = instructions_image, pos = (540, 250),
+            start_game_button = Button(image = button_image, pos = (540, 250),
                             text_input = "Start Game", font = smallfont, base_color ="#d7fcd4", hovering_color = "Red")
-            menu_button = Button(image = instructions_image, pos = (540, 650),
+            menu_button = Button(image = button_image, pos = (540, 650),
                             text_input = "Main Menu", font = smallfont, base_color ="#d7fcd4", hovering_color = "Red")
 
             screen.blit(play_text, play_rect)
