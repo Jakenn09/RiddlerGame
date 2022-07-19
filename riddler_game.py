@@ -38,6 +38,12 @@ game_instructions = pygame.transform.scale(game_instructions, (450, 250))
 #main text color (Red)
 redtextcolor = (250, 0, 0)
 
+#Level and lives
+level = 1
+lives = 3
+level_lives_font =  pygame.font.SysFont('comicsans', 25)
+whitetextcolor = (255, 255, 255)
+
 def main_menu():
     pygame.display.set_caption("Main Menu")
     screen = pygame.display.set_mode((screen_width, screen_height))
@@ -133,8 +139,39 @@ def play():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if menu_button.checkForInput(play_mouse_pos):
                         main_menu()
+                    if start_game_button.checkForInput(play_mouse_pos):
+                        main_game()
             pygame.display.update()
-                    
+
+
+
+def main_game():
+    pygame.display.set_caption("The Riddler Game")
+
+    while running: 
+            screen.fill("black")
+            screen.blit(back_ground, (0, 0))
+
+            play_mouse_pos = pygame.mouse.get_pos()
+
+            play_text = mainfont.render("Riddler's Games", True, redtextcolor)
+            play_rect = play_text.get_rect(center = (540, 100))
+
+            screen.blit(play_text, play_rect)
+
+            lives_lable = level_lives_font.render(f"Lives: {lives}", 1, whitetextcolor)
+            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
+
+            screen.blit(lives_lable, (400, 200))
+            screen.blit(level_label, (30, 200))
+
+            pygame.display.update() 
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            pygame.display.update()        
                         
 print("Welcome to The Riddler Game")
 main_menu()       
