@@ -2,6 +2,7 @@ import pygame
 import sys
 import time
 from pygame_functions import *
+
 from button import Button
 
 #Initializes all imported pygame modules
@@ -51,8 +52,9 @@ riddle_font = pygame.font.SysFont('comicsans', 15)
 riddle_coord = (150, 350)
 
 # Textbox (might not be used)
-input_box = pygame.Rect(150, 450, 140, 32)
+font = pygame.font.SysFont(None, 25)
 user_text = ''
+input_surface = font.render(user_text, True, (0,0,0))
 
 # List containing the answers to the riddles
 answers = ["an umbrella", "a rubber band", "a stamp", "a mushroom", "the letter g", 
@@ -168,68 +170,76 @@ def play():
 
 
 
-'''
+
 def game_loop():
     level = 1
     lives = 3
-    
-    lives_lable = level_lives_font.render(f"Lives: {lives}", 1, whitetextcolor)
-    level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
-    screen.blit(lives_lable, lives_coord)
-    game_riddle = riddle_font.render(riddles[0], 1, whitetextcolor)
-    screen.blit(game_riddle, riddle_coord)
-    pygame.display.update()
-    for event in pygame.event.get():
+    while running:
+        for i in range(len(answers)):
+            screen.fill("black") # sets screen to default
+            screen.blit(back_ground, (0, 0))
+            lives_lable = level_lives_font.render(f"Lives: {lives}", 1, whitetextcolor)
+            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
+            screen.blit(lives_lable, lives_coord)
+            screen.blit(level_label, level_coord)
+
+
+            game_riddle = riddle_font.render(riddles[i], 1, whitetextcolor)
+            screen.blit(game_riddle, riddle_coord)
+            
+            pygame.display.update()
+            user_answer = input("Enter Answer Here: ")
+            if user_answer == answers[i]:
+                level = level + 1
+            if level >= 10:
+                break
+            else:
+                level = level + 1
+                lives = lives + 1
+            if lives == 0:
+                break
+        pygame.display.update()
+        for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-    pygame.display.update()  
-'''
+                pygame.display.update()
+      
+
 
 def main_game():
     pygame.display.set_caption("The Riddler Game")
 
-    while running: 
+    while running:
+         
             screen.fill("black") # sets screen to default
             screen.blit(back_ground, (0, 0))
 
             play_mouse_pos = pygame.mouse.get_pos()
-
             play_text = mainfont.render("Riddler's Games", True, redtextcolor)
             play_rect = play_text.get_rect(center = (540, 100))
-
-            
             screen.blit(play_text, play_rect)
+
+            game_riddle = riddle_font.render(riddles[0], 1, whitetextcolor)
+            screen.blit(game_riddle, riddle_coord)
 
             level = 1
             lives = 3
+            lives_lable = level_lives_font.render(f"Lives: {lives}", 1, whitetextcolor)
+            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
+            screen.blit(lives_lable, lives_coord)
+            screen.blit(level_label, level_coord)
             
-            for i in range(len(answers)):
-                lives_lable = level_lives_font.render(f"Lives: {lives}", 1, whitetextcolor)
-                level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
-                screen.blit(lives_lable, lives_coord)
-                screen.blit(level_label, level_coord)
-
-
-                game_riddle = riddle_font.render(riddles[i], 1, whitetextcolor)
-                screen.blit(game_riddle, riddle_coord)
-            
-                pygame.display.update()
-                user_answer = input("Enter Answer Here: ")
-                if user_answer == answers[i]:
-                    level = level + 1
-                    if level >= 10:
-                        break
-                else:
-                    level = level + 1
-                    lives = lives + 1
-                    if lives == 0:
-                        break
+            # game_loop()
+           
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    sys.exit()
-            pygame.display.update()        
+                    sys.exit() 
+            pygame.display.update() 
+
+            
+                   
             
 print("Welcome to The Riddler Game")
 main_menu()       
