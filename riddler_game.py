@@ -171,7 +171,7 @@ def play():
 
 
 
-def game_loop():
+def game_loop(): # Not being used but is how the game loop should work
     level = 1
     lives = 3
     while running:
