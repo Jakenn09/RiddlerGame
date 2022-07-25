@@ -1,8 +1,6 @@
 import pygame
 import sys
 import time
-from pygame_functions import *
-
 from button import Button
 
 #Initializes all imported pygame modules
@@ -52,12 +50,14 @@ riddle_font = pygame.font.SysFont('comicsans', 15)
 riddle_coord = (150, 350)
 
 # Textbox (might not be used)
-font = pygame.font.SysFont(None, 25)
+Textfont = pygame.font.SysFont(None, 25)
 user_text = ''
-input_surface = font.render(user_text, True, (0,0,0))
+input_rect = pygame.Rect(250, 450, 140, 30)
+
+
 
 # List containing the answers to the riddles
-answers = ["an umbrella", "a rubber band", "a stamp", "a mushroom", "the letter g", 
+answers = ["a cold", "a rubber band", "a stamp", "a mushroom", "the letter g", 
                 "nothing", "light", "jared", "a piano", "a clock", "a mountain", "wind", "time","teeth", "an egg"]
 
 # List containing the riddles
@@ -208,10 +208,10 @@ def game_loop(): # Not being used but is how the game loop should work
 
 
 def main_game():
+    global user_text
     pygame.display.set_caption("The Riddler Game")
-
     while running:
-         
+            
             screen.fill("black") # sets screen to default
             screen.blit(back_ground, (0, 0))
 
@@ -230,15 +230,23 @@ def main_game():
             screen.blit(lives_lable, lives_coord)
             screen.blit(level_label, level_coord)
             
-            # game_loop()
-           
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit() 
-            pygame.display.update() 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        user_text = user_text[:-1]
+                    else:
+                        user_text += event.unicode 
 
-            
+            pygame.draw.rect(screen, whitetextcolor, input_rect, 2)
+            text_surface = Textfont.render(user_text, True, whitetextcolor)
+            screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+            input_rect.w = max(100, text_surface.get_width() + 15)
+            #print(user_text)
+            pygame.display.flip()
+            clock.tick(60)
                    
             
 print("Welcome to The Riddler Game")
