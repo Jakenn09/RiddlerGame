@@ -174,34 +174,34 @@ def Riddle_0():
             screen.fill("black") # sets screen to default
             screen.blit(back_ground, (0, 0))
 
-            play_mouse_pos = pygame.mouse.get_pos()
+            play_mouse_pos = pygame.mouse.get_pos() # gets mouse position 
             play_text = mainfont.render("Riddler's Games", True, redtextcolor)
             play_rect = play_text.get_rect(center = (540, 100))
-            screen.blit(play_text, play_rect)
+            screen.blit(play_text, play_rect) # blits text to the screen
 
-            game_riddle = riddle_font.render(riddles[0], 1, whitetextcolor)
-            screen.blit(game_riddle, riddle_coord)
+            game_riddle = riddle_font.render(riddles[0], 1, whitetextcolor) 
+            screen.blit(game_riddle, riddle_coord) # blits the riddle to the screen
 
             level = 1
             level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
-            screen.blit(level_label, level_coord)
+            screen.blit(level_label, level_coord) # blits the level to the screen
             
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if event.type == pygame.QUIT: # if red x is clicked, closes game
                     pygame.quit()
                     sys.exit() 
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_BACKSPACE:
+                if event.type == pygame.KEYDOWN: # if keydown is pressed, changes user text
+                    if event.key == pygame.K_BACKSPACE: # if backspace is pressed, last entry in user text string is deleted
                         user_text = user_text[:-1]
                     else:
                         user_text += event.unicode
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if user_text == "a cold":
+                if event.type == pygame.MOUSEBUTTONDOWN: # if user clicks after inputting an answer
+                    if user_text == "a cold": 
                         print("Thats Correct")
-                        user_text = ""
-                        Riddle_1()
+                        user_text = "" # resets user text to blank text box
+                        Riddle_1() # moves to next riddle
                     else:
-                        Game_Over()
+                        Game_Over() # if answer is wrong on mouse click, game over
                 
                     
             pygame.draw.rect(screen, whitetextcolor, input_rect, 2)
@@ -211,7 +211,13 @@ def Riddle_0():
             #print(user_text)
             pygame.display.flip()
             clock.tick(60)
-                   
+'''
+The remaining functions do the same process as Riddle_0()
+Commenting on each would be redundant. So I will highlight the changes in each of the following functions
+Riddle_1() thru Riddle_9() add one to the level count, change the index of the riddles list to print the correct
+riddle to the screen, on MOUSECLICK move to the next approperiate function, or if the answer is wrong user is sent to the Game_Over function
+If the user is able to answer all 10 riddles correctly, you can see in Riddle_9 that the user is sent to GameWon()
+'''              
 def Riddle_1():
     global user_text
     pygame.display.set_caption("The Riddler Game")
