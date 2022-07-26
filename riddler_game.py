@@ -46,7 +46,7 @@ lives_coord = (400,200)
 level_coord = (30, 200)
 
 # Riddle font and coordinates for GUI
-riddle_font = pygame.font.SysFont('comicsans', 15)
+riddle_font = pygame.font.SysFont('comicsans', 25)
 riddle_coord = (150, 350)
 
 # Textbox (might not be used)
