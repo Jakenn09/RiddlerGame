@@ -58,15 +58,13 @@ input_rect = pygame.Rect(250, 450, 140, 30)
 
 # List containing the answers to the riddles
 answers = ["a cold", "a rubber band", "a stamp", "a mushroom", "the letter g", 
-                "nothing", "light", "jared", "a piano", "a clock", "a mountain", "wind", "time","teeth", "an egg"]
+                "nothing", "light", "jared", "a piano", "a clock"]
 
 # List containing the riddles
 riddles = ["What can you catch, but not throw?", "What kind of band never plays music?", "What can travel around the world without leaving its corner?",
             "What kind of room has no doors or windows?", "What is the end of everything?", "Poor People have it. Rich people need it. If you eat it you die. What is it?",
             "What can fill a room but takes up no space?", "Jared’s father has three sons: Snap, Crackle, and..?", "What has many keys but can’t open a single lock?",
-            "What has hands but can’t clap?", "What has roots as nobody sees, Is taller than trees, Up, up it goes, And yet never grows?", "Voiceless it cries, Wingless flutters, Toothless bites, Mouthless mutters",
-             "This thing all things devours: Birds, beasts, trees, flowers; Gnaws iron, bites steel; Grinds hard stones to meal; Slays king, ruins town, And beats high mountain down.",
-             "Thirty white horses on a red hill, First they champ, Then they stamp, Then they stand still", "A box without hinges, key, or lid, Yet golden treasure inside is hid"]
+            "What has hands but can’t clap?"]
 
 # Main menu function 
 def main_menu():
@@ -165,49 +163,10 @@ def play():
                     if menu_button.checkForInput(play_mouse_pos): # if menu button is pressed, takes user back to main menu
                         main_menu()
                     if start_game_button.checkForInput(play_mouse_pos): # if start game button is pressed, takes you to the main game loop
-                        main_game() 
+                        Riddle_0() 
             pygame.display.update()
 
-
-
-
-def game_loop(): # Not being used but is how the game loop should work
-    level = 1
-    lives = 3
-    while running:
-        for i in range(len(answers)):
-            screen.fill("black") # sets screen to default
-            screen.blit(back_ground, (0, 0))
-            lives_lable = level_lives_font.render(f"Lives: {lives}", 1, whitetextcolor)
-            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
-            screen.blit(lives_lable, lives_coord)
-            screen.blit(level_label, level_coord)
-
-
-            game_riddle = riddle_font.render(riddles[i], 1, whitetextcolor)
-            screen.blit(game_riddle, riddle_coord)
-            
-            pygame.display.update()
-            user_answer = input("Enter Answer Here: ")
-            if user_answer == answers[i]:
-                level = level + 1
-            if level >= 10:
-                break
-            else:
-                level = level + 1
-                lives = lives + 1
-            if lives == 0:
-                break
-        pygame.display.update()
-        for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                pygame.display.update()
-      
-
-
-def main_game():
+def Riddle_0():
     global user_text
     pygame.display.set_caption("The Riddler Game")
     while running:
@@ -224,10 +183,7 @@ def main_game():
             screen.blit(game_riddle, riddle_coord)
 
             level = 1
-            lives = 3
-            lives_lable = level_lives_font.render(f"Lives: {lives}", 1, whitetextcolor)
             level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
-            screen.blit(lives_lable, lives_coord)
             screen.blit(level_label, level_coord)
             
             for event in pygame.event.get():
@@ -238,8 +194,16 @@ def main_game():
                     if event.key == pygame.K_BACKSPACE:
                         user_text = user_text[:-1]
                     else:
-                        user_text += event.unicode 
-
+                        user_text += event.unicode
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if user_text == "a cold":
+                        print("Thats Correct")
+                        user_text = ""
+                        Riddle_1()
+                    else:
+                        Game_Over()
+                
+                    
             pygame.draw.rect(screen, whitetextcolor, input_rect, 2)
             text_surface = Textfont.render(user_text, True, whitetextcolor)
             screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
@@ -248,6 +212,452 @@ def main_game():
             pygame.display.flip()
             clock.tick(60)
                    
+def Riddle_1():
+    global user_text
+    pygame.display.set_caption("The Riddler Game")
+    while running:
             
+            screen.fill("black") # sets screen to default
+            screen.blit(back_ground, (0, 0))
+
+            play_mouse_pos = pygame.mouse.get_pos()
+            play_text = mainfont.render("Riddler's Games", True, redtextcolor)
+            play_rect = play_text.get_rect(center = (540, 100))
+            screen.blit(play_text, play_rect)
+
+            game_riddle = riddle_font.render(riddles[1], 1, whitetextcolor)
+            screen.blit(game_riddle, riddle_coord)
+
+            level = 2
+            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
+            screen.blit(level_label, level_coord)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit() 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        user_text = user_text[:-1]
+                    else:
+                        user_text += event.unicode
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if user_text == "a rubber band":
+                        print("Thats Correct")
+                        user_text = ""
+                        Riddle_2()
+                    else:
+                        Game_Over()       
+            pygame.draw.rect(screen, whitetextcolor, input_rect, 2)
+            text_surface = Textfont.render(user_text, True, whitetextcolor)
+            screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+            input_rect.w = max(100, text_surface.get_width() + 15)
+            #print(user_text)
+            pygame.display.flip()
+            clock.tick(60)  
+
+def Riddle_2():
+    global user_text
+    pygame.display.set_caption("The Riddler Game")
+    while running:
+            
+            screen.fill("black") # sets screen to default
+            screen.blit(back_ground, (0, 0))
+
+            play_mouse_pos = pygame.mouse.get_pos()
+            play_text = mainfont.render("Riddler's Games", True, redtextcolor)
+            play_rect = play_text.get_rect(center = (540, 100))
+            screen.blit(play_text, play_rect)
+
+            game_riddle = riddle_font.render(riddles[2], 1, whitetextcolor)
+            screen.blit(game_riddle, riddle_coord)
+
+            level = 3
+            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
+            screen.blit(level_label, level_coord)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit() 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        user_text = user_text[:-1]
+                    else:
+                        user_text += event.unicode
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if user_text == "a stamp":
+                        print("Thats Correct")
+                        user_text = ""
+                        Riddle_3()
+                    else:
+                        Game_Over()
+                
+                    
+            pygame.draw.rect(screen, whitetextcolor, input_rect, 2)
+            text_surface = Textfont.render(user_text, True, whitetextcolor)
+            screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+            input_rect.w = max(100, text_surface.get_width() + 15)
+            #print(user_text)
+            pygame.display.flip()
+            clock.tick(60)
+
+def Riddle_3():
+    global user_text
+    pygame.display.set_caption("The Riddler Game")
+    while running:
+            
+            screen.fill("black") # sets screen to default
+            screen.blit(back_ground, (0, 0))
+
+            play_mouse_pos = pygame.mouse.get_pos()
+            play_text = mainfont.render("Riddler's Games", True, redtextcolor)
+            play_rect = play_text.get_rect(center = (540, 100))
+            screen.blit(play_text, play_rect)
+
+            game_riddle = riddle_font.render(riddles[3], 1, whitetextcolor)
+            screen.blit(game_riddle, riddle_coord)
+
+            level = 4
+            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
+            screen.blit(level_label, level_coord)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit() 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        user_text = user_text[:-1]
+                    else:
+                        user_text += event.unicode
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if user_text == "a mushroom":
+                        print("Thats Correct")
+                        user_text = ""
+                        Riddle_4()
+                    else:
+                        Game_Over()
+                
+                    
+            pygame.draw.rect(screen, whitetextcolor, input_rect, 2)
+            text_surface = Textfont.render(user_text, True, whitetextcolor)
+            screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+            input_rect.w = max(100, text_surface.get_width() + 15)
+            #print(user_text)
+            pygame.display.flip()
+            clock.tick(60)
+
+def Riddle_4():
+    global user_text
+    pygame.display.set_caption("The Riddler Game")
+    while running:
+            
+            screen.fill("black") # sets screen to default
+            screen.blit(back_ground, (0, 0))
+
+            play_mouse_pos = pygame.mouse.get_pos()
+            play_text = mainfont.render("Riddler's Games", True, redtextcolor)
+            play_rect = play_text.get_rect(center = (540, 100))
+            screen.blit(play_text, play_rect)
+
+            game_riddle = riddle_font.render(riddles[4], 1, whitetextcolor)
+            screen.blit(game_riddle, riddle_coord)
+
+            level = 5
+            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
+            screen.blit(level_label, level_coord)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit() 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        user_text = user_text[:-1]
+                    else:
+                        user_text += event.unicode
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if user_text == "the letter g":
+                        print("Thats Correct")
+                        user_text = ""
+                        Riddle_5()
+                    else:
+                        Game_Over()
+                
+                    
+            pygame.draw.rect(screen, whitetextcolor, input_rect, 2)
+            text_surface = Textfont.render(user_text, True, whitetextcolor)
+            screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+            input_rect.w = max(100, text_surface.get_width() + 15)
+            #print(user_text)
+            pygame.display.flip()
+            clock.tick(60)
+
+def Riddle_5():
+    global user_text
+    pygame.display.set_caption("The Riddler Game")
+    while running:
+            
+            screen.fill("black") # sets screen to default
+            screen.blit(back_ground, (0, 0))
+
+            play_mouse_pos = pygame.mouse.get_pos()
+            play_text = mainfont.render("Riddler's Games", True, redtextcolor)
+            play_rect = play_text.get_rect(center = (540, 100))
+            screen.blit(play_text, play_rect)
+
+            game_riddle = riddle_font.render(riddles[5], 1, whitetextcolor)
+            screen.blit(game_riddle, riddle_coord)
+
+            level = 6
+            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
+            screen.blit(level_label, level_coord)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit() 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        user_text = user_text[:-1]
+                    else:
+                        user_text += event.unicode
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if user_text == "nothing":
+                        print("Thats Correct")
+                        user_text = ""
+                        Riddle_6()
+                    else:
+                        Game_Over()
+                
+                    
+            pygame.draw.rect(screen, whitetextcolor, input_rect, 2)
+            text_surface = Textfont.render(user_text, True, whitetextcolor)
+            screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+            input_rect.w = max(100, text_surface.get_width() + 15)
+            #print(user_text)
+            pygame.display.flip()
+            clock.tick(60)
+
+def Riddle_6():
+    global user_text
+    pygame.display.set_caption("The Riddler Game")
+    while running:
+            
+            screen.fill("black") # sets screen to default
+            screen.blit(back_ground, (0, 0))
+
+            play_mouse_pos = pygame.mouse.get_pos()
+            play_text = mainfont.render("Riddler's Games", True, redtextcolor)
+            play_rect = play_text.get_rect(center = (540, 100))
+            screen.blit(play_text, play_rect)
+
+            game_riddle = riddle_font.render(riddles[6], 1, whitetextcolor)
+            screen.blit(game_riddle, riddle_coord)
+
+            level = 7
+            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
+            screen.blit(level_label, level_coord)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit() 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        user_text = user_text[:-1]
+                    else:
+                        user_text += event.unicode
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if user_text == "light":
+                        print("Thats Correct")
+                        user_text = ""
+                        Riddle_7()
+                    else:
+                        Game_Over()
+                
+                    
+            pygame.draw.rect(screen, whitetextcolor, input_rect, 2)
+            text_surface = Textfont.render(user_text, True, whitetextcolor)
+            screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+            input_rect.w = max(100, text_surface.get_width() + 15)
+            #print(user_text)
+            pygame.display.flip()
+            clock.tick(60)
+
+def Riddle_7():
+    global user_text
+    pygame.display.set_caption("The Riddler Game")
+    while running:
+            
+            screen.fill("black") # sets screen to default
+            screen.blit(back_ground, (0, 0))
+
+            play_mouse_pos = pygame.mouse.get_pos()
+            play_text = mainfont.render("Riddler's Games", True, redtextcolor)
+            play_rect = play_text.get_rect(center = (540, 100))
+            screen.blit(play_text, play_rect)
+
+            game_riddle = riddle_font.render(riddles[7], 1, whitetextcolor)
+            screen.blit(game_riddle, riddle_coord)
+
+            level = 8
+            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
+            screen.blit(level_label, level_coord)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit() 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        user_text = user_text[:-1]
+                    else:
+                        user_text += event.unicode
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if user_text == "jared":
+                        print("Thats Correct")
+                        user_text = ""
+                        Riddle_8()
+                    else:
+                        Game_Over()
+                
+                    
+            pygame.draw.rect(screen, whitetextcolor, input_rect, 2)
+            text_surface = Textfont.render(user_text, True, whitetextcolor)
+            screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+            input_rect.w = max(100, text_surface.get_width() + 15)
+            #print(user_text)
+            pygame.display.flip()
+            clock.tick(60)
+
+def Riddle_8():
+    global user_text
+    pygame.display.set_caption("The Riddler Game")
+    while running:
+            
+            screen.fill("black") # sets screen to default
+            screen.blit(back_ground, (0, 0))
+
+            play_mouse_pos = pygame.mouse.get_pos()
+            play_text = mainfont.render("Riddler's Games", True, redtextcolor)
+            play_rect = play_text.get_rect(center = (540, 100))
+            screen.blit(play_text, play_rect)
+
+            game_riddle = riddle_font.render(riddles[8], 1, whitetextcolor)
+            screen.blit(game_riddle, riddle_coord)
+
+            level = 9
+            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
+            screen.blit(level_label, level_coord)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit() 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        user_text = user_text[:-1]
+                    else:
+                        user_text += event.unicode
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if user_text == "a piano":
+                        print("Thats Correct")
+                        user_text = ""
+                        Riddle_9()
+                    else:
+                        Game_Over()
+             
+            pygame.draw.rect(screen, whitetextcolor, input_rect, 2)
+            text_surface = Textfont.render(user_text, True, whitetextcolor)
+            screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+            input_rect.w = max(100, text_surface.get_width() + 15)
+            #print(user_text)
+            pygame.display.flip()
+            clock.tick(60)
+
+def Riddle_9():
+    global user_text
+    pygame.display.set_caption("The Riddler Game")
+    while running:
+            
+            screen.fill("black") # sets screen to default
+            screen.blit(back_ground, (0, 0))
+
+            play_mouse_pos = pygame.mouse.get_pos()
+            play_text = mainfont.render("Riddler's Games", True, redtextcolor)
+            play_rect = play_text.get_rect(center = (540, 100))
+            screen.blit(play_text, play_rect)
+
+            game_riddle = riddle_font.render(riddles[9], 1, whitetextcolor)
+            screen.blit(game_riddle, riddle_coord)
+
+            level = 10
+            level_label = level_lives_font.render(f"Level: {level}", 1, whitetextcolor)
+            screen.blit(level_label, level_coord)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit() 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        user_text = user_text[:-1]
+                    else:
+                        user_text += event.unicode
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if user_text == "a clock":
+                        print("Thats Correct")
+                        Game_Won()
+                    else:
+                        Game_Over()
+                
+                    
+            pygame.draw.rect(screen, whitetextcolor, input_rect, 2)
+            text_surface = Textfont.render(user_text, True, whitetextcolor)
+            screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+            input_rect.w = max(100, text_surface.get_width() + 15)
+            pygame.display.flip()
+            clock.tick(60)
+
+def Game_Over():
+    pygame.display.set_caption("Game Over")
+
+    while running:
+        screen.fill("black") # Sets screen and background
+        screen.blit(back_ground, (0,0))
+
+        GameOver_text = mainfont.render("Game Over", True, redtextcolor)
+        GameOver_rect = GameOver_text.get_rect(center = (540, 100))
+
+        screen.blit(GameOver_text, GameOver_rect)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit() # exits GUI when red X is pressed
+                sys.exit()
+        pygame.display.update()
+
+
+def Game_Won():
+    pygame.display.set_caption("You Won The Game")
+
+    while running:
+        screen.fill("black") # Sets screen and background
+        screen.blit(back_ground, (0,0))
+
+        GameWon_text = mainfont.render("YOU WIN!!!", True, redtextcolor)
+        GameWon_rect = GameWon_text.get_rect(center = (540, 100))
+
+        screen.blit(GameWon_text, GameWon_rect)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit() # exits GUI when red X is pressed
+                sys.exit()
+        pygame.display.update()
+
 print("Welcome to The Riddler Game")
-main_menu()       
+main_menu()   
+    
