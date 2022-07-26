@@ -14,7 +14,7 @@ clock = pygame.time.Clock()
 game_paused = False
 
 #Creating initial screen
-screen_width, screen_height = 1080, 720
+screen_width, screen_height = 1440, 1080
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Main Menu")
 
@@ -34,7 +34,7 @@ quit_image = pygame.image.load("red_button2.png")
 quit_image = pygame.transform.scale(quit_image, (250, 75))
 
 game_instructions = pygame.image.load("game_instructions.png")
-game_instructions = pygame.transform.scale(game_instructions, (450, 250))
+game_instructions = pygame.transform.scale(game_instructions, (900, 900))
 
 #main text color (Red)
 redtextcolor = (250, 0, 0)
@@ -107,7 +107,7 @@ def instructions():
     while running:
         screen.fill("black") # Sets screen and background
         screen.blit(back_ground, (0,0))
-        screen.blit(game_instructions, (100, 300)) # adds the instruction .png to the GUI
+        screen.blit(game_instructions, (.5, .5)) # adds the instruction .png to the GUI
 
         instructions_mouse_pos = pygame.mouse.get_pos()
 
